@@ -9,7 +9,7 @@ const MainMenu = function () { // creating function that shows the main Menu
                 type: "list",
                 message: "Please select one of the options ",
                 name: "team",
-                choices: ["View All Roles", "View All Employees", "Add a department ", "Add a role", "Add an Employee", "Update Employee role", "Exit"],
+                choices: ["View All Roles", "View All Employees", "Add a department", "Add a role", "Add an Employee", "Update Employee role", "Exit"],
             },
         ])
 
@@ -76,12 +76,12 @@ function viewAllroles() {
     });
   }
 
-function addDepartment(){
+const addDepartment = function () {
  //connection.query('SELECT * FROM department',  (err, results) {
- inquirer.prompt ([{
+ inquirer.prompt([{
    type:"input",
+   message: "Write here the Department you want to add",
    name: "dpt", // put as placehorlder 
-   message: "Write here the Department you want to add"
 }])
 .then(function (answer) {
     const query = "INSERT INTO  department (name) VALUE (?);";
@@ -96,6 +96,6 @@ function addDepartment(){
 
 };
 
-  
+
 
 MainMenu(); // Calling function MainMenu
