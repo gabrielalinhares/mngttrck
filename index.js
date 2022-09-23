@@ -68,13 +68,7 @@ function viewAllroles() {
     });
   }
 
-  function viewAllemployees() {
-    const query = "SELECT * FROM employee";
-    connection.query(query, (err, res) => {
-      console.table(res);
-      MainMenu();
-    });
-  }
+ 
 
 const addDepartment = function () {
  //connection.query('SELECT * FROM department',  (err, results) {
@@ -95,6 +89,28 @@ const addDepartment = function () {
 });
 
 };
+
+const addrole = function () {
+    //connection.query('SELECT * FROM department',  (err, results) {
+    inquirer.prompt([{
+      type:"input",
+      message: "Write here the role you want to add",
+      name: "rl", // put as placehorlder 
+   }])
+   .then(function (answer) {
+       const query = "INSERT INTO  role (title) VALUE (?);";
+       connection.query( query, [answer.rl], (err,results) => {
+           if(err){
+               return err;
+           } else { 
+            viewAllroles();
+           }
+       });
+   });
+   
+   };
+
+
 
 
 
