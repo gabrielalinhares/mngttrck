@@ -11,9 +11,9 @@ const MainMenu = function () { // creating function that shows the main Menu
                 name: "team",
                 choices: ["View All Roles", "View All Employees", "Add a department ", "Add a role", "Add an Employee", "Update Employee role", "Exit"],
             },
-        ]);
+        ])
 
-        then((answer) => { // redirecting the answer for each submenu 
+        .then(function (answer) { // redirecting the answer for each submenu 
             switch (answer.team) {
               case "View All Roles":
                 viewAllroles();
@@ -42,7 +42,7 @@ const MainMenu = function () { // creating function that shows the main Menu
       };
 
 
-MainMenu(); // Calling function MainMenu
+
 
 function viewAllroles() {
     const query = "SELECT * FROM role";
@@ -52,8 +52,8 @@ function viewAllroles() {
     });
   }
 
-  function viewAllemployees() {
-    const query = "SELECT * FROM employee";
+  function viewAlldpts() {
+    const query = "SELECT * FROM department";
     connection.query(query, (err, res) => {
       console.table(res);
       MainMenu();
@@ -68,15 +68,34 @@ function viewAllroles() {
     });
   }
 
-  //async function addDepartment(){
- // connection.query('SELECT * FROM department', async (err, results) {
-//const department = await inquirer.prompt ([{
- //   name: "dpt", // put as placehorlder 
-   // message: "Write here the Department you want to add ",
-//}])
-// const populateSeed = await connection.query(
-//     "INSERT INTO  department (name) VALUE ('?') "
-// )
-//  });
+  function viewAllemployees() {
+    const query = "SELECT * FROM employee";
+    connection.query(query, (err, res) => {
+      console.table(res);
+      MainMenu();
+    });
+  }
 
-//   }
+function addDepartment(){
+ //connection.query('SELECT * FROM department',  (err, results) {
+ inquirer.prompt ([{
+   type:"input",
+   name: "dpt", // put as placehorlder 
+   message: "Write here the Department you want to add"
+}])
+.then(function (answer) {
+    const query = "INSERT INTO  department (name) VALUE (?);";
+    connection.query( query, [answer.dpt], (err,results) => {
+        if(err){
+            return err;
+        } else { 
+            viewAlldpts();
+        }
+    });
+});
+
+};
+
+  
+
+MainMenu(); // Calling function MainMenu
