@@ -51,6 +51,7 @@ const MainMenu = function () {
 };
 
 function viewAllroles() {
+  // function to view roles in the DB
   const query = "SELECT * FROM role";
   connection.query(query, (err, res) => {
     console.table(res);
@@ -59,6 +60,7 @@ function viewAllroles() {
 }
 
 function viewAlldpts() {
+  // function to view the departments in the DB
   const query = "SELECT * FROM department";
   connection.query(query, (err, res) => {
     console.table(res);
@@ -67,6 +69,7 @@ function viewAlldpts() {
 }
 
 function viewAllemployees() {
+  // function to view all employees in the DB
   const query = "SELECT * FROM employee";
   connection.query(query, (err, res) => {
     console.table(res);
@@ -75,16 +78,17 @@ function viewAllemployees() {
 }
 
 const addDepartment = function () {
-  //connection.query('SELECT * FROM department',  (err, results) {
+  // Function to add a department in the DB
   inquirer
     .prompt([
       {
-        type: "input",
+        type: "input", // gather the information user inputs
         message: "Write here the Department you want to add",
         name: "dpt", // put as placehorlder
       },
     ])
     .then(function (answer) {
+      // add the information added by the user to the correct table in the db
       const query = "INSERT INTO  department (name) VALUE (?);";
       connection.query(query, [answer.dpt], (err, results) => {
         if (err) {
@@ -97,6 +101,7 @@ const addDepartment = function () {
 };
 
 const addrole = function () {
+  // add role to the DB
   inquirer
     .prompt([
       {
@@ -117,9 +122,8 @@ const addrole = function () {
     ])
 
     .then(function (answer) {
-      console.log("ots working, ", answer);
       const query =
-        "INSERT INTO  role (title,salary,department_id) VALUES (?,?,?);";
+        "INSERT INTO  role (title,salary,department_id) VALUES (?,?,?);"; // add the data inputted by the user to the correct DB
       connection.query(
         query,
         [answer.rl, answer.sl, answer.did],
@@ -135,9 +139,10 @@ const addrole = function () {
 };
 
 const UpdateEmployeeRole = function () {
+  // update employee data in the DB
   const query = "SELECT * FROM employee";
   connection.query(query, (err, res) => {
-    console.table(res);
+    console.table(res); // Shows Employees table  so user can know which ID the employee has
   }),
     inquirer
       .prompt([
@@ -165,6 +170,7 @@ const UpdateEmployeeRole = function () {
 };
 
 const addEmployee = function () {
+  // Add employee to the DB
   inquirer
     .prompt([
       {
